@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/layout_row"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            android:layout_marginLeft="5dp"
+            android:src="@drawable/ic_person"
+            android:id="@+id/img_conversationlis_imageView"
+            android:layout_gravity="center_vertical" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:textColor="@android:color/black"
+                android:text="Large Text"
+                android:fontFamily="sans-serif-thin"
+                android:textStyle="bold"
+                android:ellipsize="end"
+                android:singleLine="true"
+                android:id="@+id/person_conversationlist_textview" />
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Small Text"
+                android:fontFamily="sans-serif-thin"
+                android:id="@+id/date_conversationlist_textView" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/open_conversation_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/open_view_color_red"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="38sp"
+            android:text="@string/open_conversation"
+            android:textColor="@color/default_color"
+            android:fontFamily="sans-serif-thin"
+            android:textStyle="bold"
+            android:id="@+id/open_conversation_textView"
+            android:layout_marginLeft="24dp"
+            android:layout_centerInParent="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+    </RelativeLayout>
+
+
+</FrameLayout>

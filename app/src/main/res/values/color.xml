@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="pressed_color">#0099cc</color>
+    <color name="default_color">#ffffff</color>
+    <color name="open_view_color_grey">#AA888888</color>
+    <color name="open_view_color_red">#CCC76249</color>
+
+    <color name="text_grey">#595959</color>
+    <color name="text_black">#000000</color>
+    <color name="text_red">#C76249</color>
+
+    <color name="background_actionbar_trasparent">#AAF0F0F0</color>
+    <color name="background_actionbar">#EAF6E0</color>
+
+    <color name="background_activity">#EAF6E0</color>
+</resources>

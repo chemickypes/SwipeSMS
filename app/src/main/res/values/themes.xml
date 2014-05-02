@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="SwipeSMS" parent="@style/_SwipeSMS"/>
+
+    <style name="_SwipeSMS" parent="android:Theme.Holo.Light">
+
+        <item name="android:actionBarStyle">@style/SwipeActionBarTheme</item>
+        <item name="android:editTextBackground">@drawable/swipesms_edit_text_holo_light</item>
+
+    </style>
+
+
+    <!-- tema per action bar normale -->
+    <style name="SwipeActionBarTheme" parent="@android:style/Widget.Holo.Light.ActionBar.Solid">
+        <item name="android:selectableItemBackground">@drawable/background_selection_action_bar</item>
+        <item name="android:titleTextStyle">@style/SwipeSMSActionBarTitleText</item>
+
+    </style>
+
+
+    <!-- ActionBar title text -->
+    <style name="SwipeSMSActionBarTitleText"
+        parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">25sp</item>
+    </style>
+
+
+
+    
+</resources>

@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.baraccasoftware.swipesms.app.ConversationActivity" >
+    
+    <item android:id="@+id/action_delete_sms"
+        android:title="@string/delete_sms"
+       />
+    <item android:id="@+id/action_info_sms"
+        android:title="@string/info_sms"
+
+        />
+</menu>

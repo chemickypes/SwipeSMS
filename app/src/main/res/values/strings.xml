@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SwipeSMS</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_conversation">ConversationActivity</string>
+    <string name="alphabet">ABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="choose_sms_app">Set as default</string>
+    <string name="set_default_sms_text">This app is not the default SMS app</string>
+    <string name="new_sms">New Conversation</string>
+    <string name="open_conversation">Open … </string>
+    <string name="resending_sms">Resending …</string>
+    <string name="hey_hint">Hey…</string>
+    <string name="footer_hint">SMS to…</string>
+    <string name="sms_inbox">Received</string>
+    <string name="sms_sent">Sent</string>
+    <string name="sms_outbox">Sending</string>
+    <string name="sms_failed">Failed</string>
+    <string name="sure_delete_sms">Sure to delete SMS?</string>
+    <string name="sure_delete_conversation">Sure to delete Conversation?</string>
+
+    <!-- stringhe pe ril context menu in conversation list -->
+    <string name="delete_sms">Delete SMS</string>
+    <string name="info_sms">Info SMS</string>
+
+    <!-- stringhe per il context menu main activity -->
+    <string name="delete_conversation">Delete Conversation</string>
+
+    <!-- stringhe per il menu activity -->
+    <string name="action_add_conv">Add Conversation</string>
+
+    <!-- stringhe search view -->
+    <string name="to_contact">To…</string>
+
+    <string name="title_activity_settings">Settings</string>
+    <string name="about_bs">About BaraccaSoftware</string>
+    <string name="title_defualt_app">Default SMS App </string>
+    <string name="baracca_software">BaraccaSoftware</string>
+    <string name="about_swipesms">About SwipeSMS</string>
+    <string name="general_settings">General</string>
+    <string name="other_settings">Other</string>
+    <string name="use_swipe_to_send_sms">Swipe to send SMS</string>
+    <string name="summary_use_swipe_to_send_sms">Use Swipe Bottom to Top to send SMS</string>
+
+</resources>
