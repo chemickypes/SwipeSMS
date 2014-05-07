@@ -99,7 +99,6 @@ public class SMSFragment extends ListFragment implements LoaderManager.LoaderCal
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
                 mListener.onLongItemClick(getListView(),i);
-                //TODO: callbacks to open context
                 return true;
             }
         });

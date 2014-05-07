@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.app.ListFragment;
 import android.app.LoaderManager;
 import android.content.Loader;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,6 +14,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -115,9 +118,25 @@ public class ContactFragment extends ListFragment implements LoaderManager.Loade
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         //super.onCreateOptionsMenu(menu, inflater);
         mSearchView = new SearchView(getActivity());
+
         mSearchView.setQueryHint(getString(R.string.to_contact));
         mSearchView.setIconified(false);
         mSearchView.setOnQueryTextListener(this);
+
+
+        //add PhoneNumber Format fo edittext
+        int searchPlateId = mSearchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
+        EditText searchPlate = (EditText) mSearchView.findViewById(searchPlateId);
+        searchPlate.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
+        searchPlate.setTypeface(
+                Typeface.SANS_SERIF
+        );
+
+        //background
+        int fId = mSearchView.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
+        View frame = mSearchView.findViewById(fId);
+        frame.setBackgroundResource(R.drawable.swipesms_edit_text_holo_light);
+
 
 
         menu.add("Search")

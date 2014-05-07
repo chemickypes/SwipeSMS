@@ -7,6 +7,8 @@
         <item name="android:actionBarStyle">@style/SwipeActionBarTheme</item>
         <item name="android:editTextBackground">@drawable/swipesms_edit_text_holo_light</item>
 
+
+
     </style>
 
 
@@ -25,6 +27,8 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">25sp</item>
     </style>
+
+
 
 
 
