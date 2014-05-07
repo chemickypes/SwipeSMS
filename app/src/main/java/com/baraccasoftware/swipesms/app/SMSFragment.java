@@ -114,10 +114,11 @@ public class SMSFragment extends ListFragment implements LoaderManager.LoaderCal
     @Override
     public void onResume() {
         super.onResume();
-        if(SwipeSMSProvider.getIdUnReadSMS(getActivity(),getAddress())!= -1) {
+        /*if(SwipeSMSProvider.getIdUnReadSMS(getActivity(),getAddress())!= -1) {
             SwipeSMSProvider.removeUnReadSMS(getActivity(),getAddress());
             getLoaderManager().restartLoader(LOADER_ID,null,this);
-        }
+        }*/
+        getLoaderManager().initLoader(LOADER_ID, null, this);
     }
 
     @Override
@@ -188,7 +189,7 @@ public class SMSFragment extends ListFragment implements LoaderManager.LoaderCal
         mAdapter = new SMSListAdapter(getActivity());
         //Log.d(TAG,"thread_id: "+thread_id);
         setListAdapter(mAdapter);
-        getLoaderManager().initLoader(LOADER_ID, null, this);
+        //getLoaderManager().initLoader(LOADER_ID, null, this);
     }
 
     public int getThread_id() {
