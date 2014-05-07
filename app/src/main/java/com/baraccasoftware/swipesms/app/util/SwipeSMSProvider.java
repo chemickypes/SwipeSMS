@@ -380,6 +380,10 @@ public class SwipeSMSProvider {
     public static Bitmap getPhotoContactFromConversation(Context mContext, Conversation conversation){
 
 
+        return getPhotoContactFromPhotoID(mContext, conversation.getPhoto());
+    }
+
+    public static Bitmap getPhotoContactFromPhotoID(Context mContext, String photoID){
         ContentResolver cr = mContext.getContentResolver();
 
         byte[] photoBytes = null;
@@ -387,8 +391,8 @@ public class SwipeSMSProvider {
 
         try
         {
-            Log.d("ID PHOTO", conversation.getPhoto());
-            Uri photoUri = ContentUris.withAppendedId(ContactsContract.Data.CONTENT_URI, Long.decode(conversation.getPhoto()));
+            Log.d("ID PHOTO", photoID);
+            Uri photoUri = ContentUris.withAppendedId(ContactsContract.Data.CONTENT_URI, Long.decode(photoID));
 
             c = cr.query(photoUri, new String[] {ContactsContract.CommonDataKinds.Photo.PHOTO}, null, null, null);
 

@@ -32,6 +32,7 @@ import android.util.Log;
 import com.baraccasoftware.swipesms.app.ConversationActivity;
 import com.baraccasoftware.swipesms.app.ConversationFragment;
 import com.baraccasoftware.swipesms.app.R;
+import com.baraccasoftware.swipesms.app.component.SMSNotification;
 import com.baraccasoftware.swipesms.app.object.Conversation;
 import com.baraccasoftware.swipesms.app.object.SMS;
 import com.baraccasoftware.swipesms.app.receiver.MessagingReceiver;
@@ -106,7 +107,7 @@ public class MessagingService extends IntentService {
 
                 //send broadcast to check if smsactivity is active and it's correct
                 Intent newIntent = new Intent(ConversationActivity.NEW_MESSAGE);
-                if(currentMessage!= null) {
+                if(sms != null) {
                     newIntent.putExtra(Conversation.ADDRESS_TAG, sms.getAddress());
                 }
                 sendOrderedBroadcast(newIntent,
@@ -117,7 +118,8 @@ public class MessagingService extends IntentService {
                                 if(getResultCode() != Activity.RESULT_OK){
                                     //send notification
                                     Log.i(TAG, "notify");
-                                    sendNotification(sms.getAddress(), sms.getBody(),not_id);
+                                    //sendNotification(sms.getAddress(), sms.getBody(),not_id);
+                                    SMSNotification.notify(MessagingService.this, sms.getAddress(), sms.getBody(), not_id);
                                 }
                             }
                         },null,0,null,null);

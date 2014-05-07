@@ -172,7 +172,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="MainActivity" />
         </activity>
+
+        <service
+            android:name="com.baraccasoftware.swipesms.app.service.MarskAsReadIntentService"
+            android:exported="false" >
+        </service>
     </application>
 
 </manifest>
-

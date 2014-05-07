@@ -21,6 +21,8 @@
     <string name="sms_failed">Failed</string>
     <string name="sure_delete_sms">Sure to delete SMS?</string>
     <string name="sure_delete_conversation">Sure to delete Conversation?</string>
+    <string name="action_reply">Reply</string>
+    <string name="action_mark_as_read">Mark as Read</string>
 
     <!-- stringhe pe ril context menu in conversation list -->
     <string name="delete_sms">Delete SMS</string>
