@@ -463,7 +463,7 @@ public class SwipeSMSProvider {
         cv.put("status", sms.getStatus());
         cv.put("type",sms.getType());
         cv.put("body",sms.getBody());
-        //cv.put("read",1);
+        cv.put("read",1);//
 
         Uri uri = getSMSUri();
 

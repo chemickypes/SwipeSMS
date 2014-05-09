@@ -2,6 +2,7 @@ package com.baraccasoftware.swipesms.app.service;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.util.Log;
 
 import com.baraccasoftware.swipesms.app.component.SMSNotification;
 import com.baraccasoftware.swipesms.app.util.SwipeSMSProvider;
@@ -43,6 +44,7 @@ public class MarskAsReadIntentService extends IntentService {
     }
 
     private void handleActionMarkAsRead(String address, int not_id) {
+        Log.i("MarkAsReadIntentService", "address: "+address+" not_id: "+not_id);
         SwipeSMSProvider.removeUnReadSMS(this,address);
         SMSNotification.cancel(this, not_id);
     }

@@ -132,7 +132,7 @@ public class MessagingService extends IntentService {
     /**
      * this method send notification
      */
-    private void sendNotification(String address, String body, int not_id){
+    /*private void sendNotification(String address, String body, int not_id){
         Notification.Builder mBuilder;
         NotificationManager mNotifyManager;
         String title = getTitle(address);
@@ -162,7 +162,7 @@ public class MessagingService extends IntentService {
                 .setSmallIcon(R.drawable.ic_notification)
                 .setAutoCancel(true)
                 /*.setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-                .setVibrate(new long[] { 1000, 1000, 1000 })*/
+                .setVibrate(new long[] { 1000, 1000, 1000 })
                 .setContentIntent(pendingIntent);
 
         Notification notification = mBuilder.build();
@@ -170,7 +170,7 @@ public class MessagingService extends IntentService {
         notification.defaults |= Notification.FLAG_SHOW_LIGHTS;
 
         mNotifyManager.notify(not_id,notification);
-    }
+    }*/
 
     /**
      * this method return id. Existent id if there ia a notification related at this address,

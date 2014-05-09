@@ -101,7 +101,7 @@ public class SMSNotification {
                         R.drawable.abc_ic_cab_done_holo_dark,
                         res.getString(R.string.action_mark_as_read),
                         PendingIntent.getService(context,
-                                0,
+                                not_id,
                                 intentS,
                                 PendingIntent.FLAG_UPDATE_CURRENT))
 
