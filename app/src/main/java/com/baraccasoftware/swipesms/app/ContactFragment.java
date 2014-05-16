@@ -128,14 +128,14 @@ public class ContactFragment extends ListFragment implements LoaderManager.Loade
         int searchPlateId = mSearchView.getContext().getResources().getIdentifier("android:id/search_src_text", null, null);
         EditText searchPlate = (EditText) mSearchView.findViewById(searchPlateId);
         searchPlate.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
-        searchPlate.setTypeface(
+        /*searchPlate.setTypeface(
                 Typeface.SANS_SERIF
         );
 
         //background
         int fId = mSearchView.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
         View frame = mSearchView.findViewById(fId);
-        frame.setBackgroundResource(R.drawable.swipesms_edit_text_holo_light);
+        frame.setBackgroundResource(R.drawable.swipesms_edit_text_holo_light);*/
 
 
 

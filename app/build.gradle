@@ -29,4 +29,13 @@ dependencies {
     compile 'com.android.support:support-v4:19.0.+'
     // You must install or update the Support Repository through the SDK manager to use this dependency.
     compile 'com.android.support:appcompat-v7:19.+'
+
+    repositories {
+        mavenCentral()
+        maven {
+            url 'https://github.com/chemickypes/mvn-repo/raw/master/'
+        }
+    }
+
+    compile 'com.chemickypes.emojicon:library:1.0'
 }

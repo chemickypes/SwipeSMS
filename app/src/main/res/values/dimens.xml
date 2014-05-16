@@ -5,4 +5,6 @@
 
     <dimen name="standard_margin">8dp</dimen>
 
-    </resources>
+    <dimen name="keyboard_height">230dip</dimen>
+
+</resources>

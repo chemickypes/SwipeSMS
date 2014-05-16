@@ -2,6 +2,7 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:id="@+id/parent_layout"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 
@@ -30,25 +31,54 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|bottom">
 
-        <EditText
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView_emoji"
+            android:layout_weight="0.15"
+            android:layout_gravity="center"
+            android:padding="3dp"
+            android:src="@drawable/ic_smile_icon"/>
 
-            android:layout_width="match_parent"
+        <com.rockerhieu.emojicon.EmojiconEditText
+
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:inputType="textMultiLine|textCapSentences"
             android:hint="@string/hey_hint"
 
-            android:layout_weight="4"
+            android:layout_weight="0.85"
             android:ems="10"
             android:id="@+id/message_editText" />
 
         <ImageButton
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="0.13"
             android:src="@android:drawable/ic_menu_send"
             android:id="@+id/message_imageButton" />
     </LinearLayout>
+
+
+
+
+    <FrameLayout
+        android:orientation="vertical"
+        android:id="@+id/footer_for_emoticons"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/keyboard_height"
+        android:background="@android:color/transparent"
+        android:visibility="gone" >
+
+        <!-- <fragment
+            android:id="@+id/emojicons"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            class="com.rockerhieu.emojicon.EmojiconsFragment"/> -->
+
+
+        </FrameLayout>
 
 
 

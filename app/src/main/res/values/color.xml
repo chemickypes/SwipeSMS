@@ -13,4 +13,5 @@
     <color name="background_actionbar">#EAF6E0</color>
 
     <color name="background_activity">#EAF6E0</color>
+    <color name="background_popupview">#323232</color>
 </resources>

@@ -10,9 +10,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentActivity;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.SmsManager;
 import android.text.Editable;
@@ -22,6 +24,7 @@ import android.util.Log;
 import android.view.ContextMenu;
 import android.view.GestureDetector;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,10 +32,16 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,13 +49,17 @@ import com.baraccasoftware.swipesms.app.object.Conversation;
 import com.baraccasoftware.swipesms.app.object.SMS;
 import com.baraccasoftware.swipesms.app.object.SwipeSMSContact;
 import com.baraccasoftware.swipesms.app.util.SwipeSMSProvider;
+import com.rockerhieu.emojicon.EmojiconGridFragment;
+import com.rockerhieu.emojicon.EmojiconsFragment;
+import com.rockerhieu.emojicon.emoji.Emojicon;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 
-public class ConversationActivity extends Activity implements SMSFragment.OnLongItemClickFragmentListener,
-                                                    ContactFragment.OnContactChoiceListener{
+public class ConversationActivity extends FragmentActivity implements SMSFragment.OnLongItemClickFragmentListener,
+                                                    ContactFragment.OnContactChoiceListener,EmojiconGridFragment.OnEmojiconClickedListener,
+                                                    EmojiconsFragment.OnEmojiconBackspaceClickedListener{
 
     public static final String NEW_MESSAGE = "com.baraccasoftware.swipesms.new_message";
     public static final String  SENT = "com.baraccasoftware.swipesms.SMS_SENT";
@@ -71,6 +84,23 @@ public class ConversationActivity extends Activity implements SMSFragment.OnLong
     private ImageButton sendButton;
     private View sendMessageView; //container of element message and sendbutton
 
+    //view fro emoji
+
+    private FrameLayout emoticonsCover;
+    private ImageView emoticonsButton;
+    private LinearLayout parent;
+    private View popv;
+    private PopupWindow popupWindow;
+
+
+
+    private int keyboardHeight;
+    private EditText content;
+
+    private boolean isKeyBoardVisible = true;
+
+
+
     private SMS smsContextMenuSelected;
 
     @Override
@@ -78,6 +108,58 @@ public class ConversationActivity extends Activity implements SMSFragment.OnLong
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
         this.sendMessageView = findViewById(R.id.view_send_message);
+
+
+
+        emoticonsCover = (FrameLayout) findViewById(R.id.footer_for_emoticons);
+        parent = (LinearLayout) findViewById(R.id.parent_layout);
+        popv = getLayoutInflater().inflate(R.layout.popup_layout, null);
+        popupWindow = new PopupWindow(popv, ViewGroup.LayoutParams.MATCH_PARENT,
+                (int) keyboardHeight,false);
+
+        // Defining default height of keyboard which is equal to 230 dip
+        final float popUpheight = getResources().getDimension(
+                R.dimen.keyboard_height);
+        changeKeyboardHeight((int) popUpheight);
+
+
+
+
+
+
+
+        // Showing and Dismissing pop up on clicking emoticons button
+        emoticonsButton = (ImageView) findViewById(R.id.imageView_emoji);
+        emoticonsButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                if (!popupWindow.isShowing()) {
+
+                    popupWindow.setHeight((int) (keyboardHeight));
+                    emoticonsButton.setImageResource(R.drawable.ic_hardware_keyboard);
+
+                    if (isKeyBoardVisible) {
+                        emoticonsCover.setVisibility(LinearLayout.GONE);
+                    } else {
+                        emoticonsCover.setVisibility(LinearLayout.VISIBLE);
+                    }
+                    popupWindow.showAtLocation(parent, Gravity.BOTTOM, 0, 0);
+
+                } else {
+                    emoticonsButton.setImageResource(R.drawable.ic_smile_icon);
+                    popupWindow.dismiss();
+                }
+
+
+            }
+        });
+
+        checkKeyboardHeight(parent);
+
+
+
         smsFragment = new SMSFragment();
         Intent intent = getIntent();
         if(intent != null){
@@ -266,8 +348,31 @@ public class ConversationActivity extends Activity implements SMSFragment.OnLong
 
     }
 
+    /**
+     * Overriding onKeyDown for dismissing keyboard on key down
+     */
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (popupWindow.isShowing()) {
+            popupWindow.dismiss();
+            return false;
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
+    }
+
     private void setLayout(){
         final GestureDetector mGestureDetector = new GestureDetector(this,new SendSMSGestureDetector());
+
+        popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+
+            @Override
+            public void onDismiss() {
+                emoticonsCover.setVisibility(LinearLayout.GONE);
+                emoticonsButton.setImageResource(R.drawable.ic_smile_icon);
+            }
+        });
+
 
         message = (EditText) findViewById(R.id.message_editText);
         message.addTextChangedListener(new TextWatcher() {
@@ -287,6 +392,18 @@ public class ConversationActivity extends Activity implements SMSFragment.OnLong
                     sendButton.setEnabled(false);
                 }else{
                     sendButton.setEnabled(true);
+                    //message.getText().append("\xF0\x9F\x98\x81");
+                }
+            }
+        });
+
+        message.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (popupWindow.isShowing()) {
+                    emoticonsButton.setImageResource(R.drawable.ic_smile_icon);
+                    popupWindow.dismiss();
+
                 }
             }
         });
@@ -434,11 +551,82 @@ public class ConversationActivity extends Activity implements SMSFragment.OnLong
     }
 
 
+
+
+
     private void sentBroadcastToSMSLoader(){
         Intent i = new Intent(SMSFragment.NEW_SMS_CONVERSATION);
         sendBroadcast(i);
     }
 
+    @Override
+    public void onEmojiconBackspaceClicked(View view) {
+        EmojiconsFragment.backspace(message);
+    }
+
+    @Override
+    public void onEmojiconClicked(Emojicon emojicon) {
+        EmojiconsFragment.input(message,emojicon);
+    }
+
+    /**
+     * Checking keyboard height and keyboard visibility
+     */
+    int previousHeightDiffrence = 0;
+    private void checkKeyboardHeight(final View parentLayout) {
+
+        parentLayout.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+
+                    @Override
+                    public void onGlobalLayout() {
+
+                        Rect r = new Rect();
+                        parentLayout.getWindowVisibleDisplayFrame(r);
+
+                        int screenHeight = parentLayout.getRootView()
+                                .getHeight();
+                        int heightDifference = screenHeight - (r.bottom);
+
+                        if (previousHeightDiffrence - heightDifference > 50) {
+                            popupWindow.dismiss();
+                        }
+
+                        previousHeightDiffrence = heightDifference;
+                        if (heightDifference > 100) {
+
+                            isKeyBoardVisible = true;
+                            changeKeyboardHeight(heightDifference);
+
+                        } else {
+
+                            isKeyBoardVisible = false;
+
+                        }
+
+                    }
+                });
+
+    }
+
+    /**
+     * change height of emoticons keyboard according to height of actual
+     * keyboard
+     *
+     * @param height
+     *            minimum height by which we can make sure actual keyboard is
+     *            open or not
+     */
+    private void changeKeyboardHeight(int height) {
+
+        if (height > 100) {
+            keyboardHeight = height;
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, keyboardHeight);
+            emoticonsCover.setLayoutParams(params);
+        }
+
+    }
 
 
     class SureRemoveSMSAlertDialog extends DialogFragment{
@@ -484,4 +672,6 @@ public class ConversationActivity extends Activity implements SMSFragment.OnLong
 
         }
     }
+
+
 }
