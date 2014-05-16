@@ -55,7 +55,7 @@ public class UnReadSMSDB {
     public int getIdUnReadSMS(String address){
         Cursor c = mDb.query(UnreadSMSMetaData.UNREAD_SMS_TABLE,
                 new String[]{UnreadSMSMetaData.NOTIFICATION_ID},
-                UnreadSMSMetaData.ADDRESS + " = '"+ address+"'",
+                UnreadSMSMetaData.ADDRESS + " like '%"+ address+"%'",
                 null, null, null,null);
         if(c.moveToFirst()){
             return c.getInt(0);
@@ -66,7 +66,7 @@ public class UnReadSMSDB {
 
     public void removeUnReadSMS(String address){
         mDb.delete(UnreadSMSMetaData.UNREAD_SMS_TABLE,
-                UnreadSMSMetaData.ADDRESS + " = '"+ address+"'",
+                UnreadSMSMetaData.ADDRESS + " like '%"+ address+"%'",
                 null);
 
     }

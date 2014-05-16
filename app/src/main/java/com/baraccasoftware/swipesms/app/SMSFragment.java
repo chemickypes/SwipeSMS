@@ -8,6 +8,7 @@ import android.content.Loader;
 import android.os.Bundle;
 import android.app.ListFragment;
 import android.os.Parcelable;
+import android.telephony.PhoneNumberUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -102,6 +103,8 @@ public class SMSFragment extends ListFragment implements LoaderManager.LoaderCal
                 return true;
             }
         });
+
+        getLoaderManager().initLoader(LOADER_ID, null, this);
     }
 
     @Override
@@ -113,11 +116,14 @@ public class SMSFragment extends ListFragment implements LoaderManager.LoaderCal
     @Override
     public void onResume() {
         super.onResume();
-        /*if(SwipeSMSProvider.getIdUnReadSMS(getActivity(),getAddress())!= -1) {
-            SwipeSMSProvider.removeUnReadSMS(getActivity(),getAddress());
+        String add = PhoneNumberUtils.stripSeparators(getAddress());
+        if(SwipeSMSProvider.getIdUnReadSMS(getActivity(),
+               add )!= -1) {
+            SwipeSMSProvider.removeUnReadSMS(getActivity(),add);
             getLoaderManager().restartLoader(LOADER_ID,null,this);
-        }*/
-        getLoaderManager().initLoader(LOADER_ID, null, this);
+        }
+        Log.d(TAG,"onResume() method");
+
     }
 
     @Override
@@ -125,6 +131,12 @@ public class SMSFragment extends ListFragment implements LoaderManager.LoaderCal
         super.onDestroyView();
         //distruggo il loader
         getLoaderManager().destroyLoader(LOADER_ID);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG,"onPause() method");
     }
 
     @Override
