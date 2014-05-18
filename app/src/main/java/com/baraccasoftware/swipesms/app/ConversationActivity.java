@@ -530,7 +530,7 @@ public class ConversationActivity extends FragmentActivity implements SMSFragmen
         String toSend = body;
         String destination = PhoneNumberUtils.stripSeparators(address);
 
-        if( toSend.length()<=160){
+        /*if( toSend.length()<=160){
             Log.d(TAG, "one part");
             partsNumber = 1;
             smsManager.sendTextMessage(destination, null,toSend , sentPI, null);
@@ -545,7 +545,18 @@ public class ConversationActivity extends FragmentActivity implements SMSFragmen
             }
 
             smsManager.sendMultipartTextMessage(destination,null,parts,sentPIs,null);
+        }*/
+
+        ArrayList<String> parts = smsManager.divideMessage(toSend);
+        partsNumber = parts.size();
+        Log.d(TAG, "divided: "+partsNumber+ " part");
+        ArrayList<PendingIntent> sentPIs = new ArrayList<PendingIntent>(partsNumber);
+        for(int i = 0; i< parts.size();i++){
+
+            sentPIs.add(i,sentPI);
         }
+
+        smsManager.sendMultipartTextMessage(destination,null,parts,sentPIs,null);
 
         //smsManager.sendTextMessage(destination, null,toSend , sentPI, null);
     }

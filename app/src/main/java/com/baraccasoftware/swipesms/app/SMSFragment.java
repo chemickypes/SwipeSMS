@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.baraccasoftware.swipesms.app.component.SMSListAdapter;
+import com.baraccasoftware.swipesms.app.component.SMSNotification;
 import com.baraccasoftware.swipesms.app.object.SMS;
 import com.baraccasoftware.swipesms.app.object.SMSListLoader;
 import com.baraccasoftware.swipesms.app.object.SwipeSMSContact;
@@ -117,9 +118,10 @@ public class SMSFragment extends ListFragment implements LoaderManager.LoaderCal
     public void onResume() {
         super.onResume();
         String add = PhoneNumberUtils.stripSeparators(getAddress());
-        if(SwipeSMSProvider.getIdUnReadSMS(getActivity(),
-               add )!= -1) {
+        int id_unread_sms = SwipeSMSProvider.getIdUnReadSMS(getActivity(),add );
+        if(id_unread_sms!= -1) {
             SwipeSMSProvider.removeUnReadSMS(getActivity(),add);
+            SMSNotification.cancel(getActivity(),id_unread_sms);
             getLoaderManager().restartLoader(LOADER_ID,null,this);
         }
         Log.d(TAG,"onResume() method");
